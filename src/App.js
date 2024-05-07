@@ -3,6 +3,7 @@ import { useState } from "react";
 import Grid from "./Components/Grid";
 import ResetBtn from "./Components/ResetBtn";
 import Score from "./Components/Score";
+import CheckBoardBtn from "./Components/CheckBoardBtn";
 
 function App() {
   const [blocks, setBlocks] = useState(Array(9).fill(""));
@@ -10,6 +11,12 @@ function App() {
   const [winner, setWinner] = useState(null);
   const [xscore, setXscore] = useState(0);
   const [oscore, setOscore] = useState(0);
+  const [viewBoard, setViewBoard] = useState(false);
+
+  const checkBoard = () => {
+    setWinner(null);
+    setViewBoard(true);
+  };
 
   const checkEndTheGame = () => {
     for (let grid of blocks) {
@@ -65,6 +72,7 @@ function App() {
     setBlocks(Array(9).fill(""));
     setTurn("x");
     setWinner(null);
+    setViewBoard(false);
   };
 
   return (
@@ -72,7 +80,11 @@ function App() {
       <h1> TIC x TAC x TOE </h1>
       <ResetBtn newGame={newGame} />
       <Score xscore={xscore} oscore={oscore} />
-      <div className="grid gap-2 grid-col grid-cols-3 items-center justify-center">
+      <div
+        className={`${
+          viewBoard ? "pointer-events-none" : ""
+        } grid gap-2 grid-col grid-cols-3 items-center justify-center`}
+      >
         {Array.from("012345678").map((index) => (
           <Grid
             key={index}
@@ -148,7 +160,10 @@ function App() {
                   transition: { delay: 1.5, duration: 0.3 },
                 }}
               >
-                <ResetBtn newGame={newGame} />
+                <div className="flex w-fit h-fit gap-5">
+                  <ResetBtn newGame={newGame} />
+                  <CheckBoardBtn checkBoard={checkBoard} />
+                </div>
               </motion.div>
             </motion.div>
           </motion.div>
