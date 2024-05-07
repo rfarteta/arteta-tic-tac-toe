@@ -1,13 +1,138 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  background: #2b2b2b;
+  font-family: "Roboto";
+}
+
+h1{
+  font-size: 30px;
+  color: #fff;
+}
+
+.game-grid {
+  span {
+      display: flex;
+      position: relative;
+      width: 70%;
+      height: 70%;
+      border-radius: 50%;
+      border: 8px solid transparent;
+      margin: 0 auto;
+      &.x::after,
+      &.x::before {
+          position: absolute;
+          content: "";
+          width: 150%;
+          height: 8px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(-45deg);
+          background: rgb(244, 67, 54);
+          border-radius: 5px;
+      }
+
+      &.x::after {
+          transform: translate(-50%, -50%) rotate(45deg);
+          opacity: 1;
+      }
+
+      &.o {
+          border-color: rgb(76, 175, 80);
+      }
+  }
+}
+
+.turn .game-grid,
+.winner .game-grid {
+    width: 70px;
+    height: 70px;
+    pointer-events: none;
+    border-color: transparent;
+    cursor: default;
+}
+
+.turn .game-grid span.x::before,
+.turn .game-grid span.x::after {
+    background: #2b2b2b;
+    transition: 0.2s;
+}
+
+.turn .game-grid span.o {
+    transition: 0.2s;
+    border-color: #2b2b2b;
+}
+
+.turn::after {
+    position: absolute;
+    content: "";
+    width: 50%;
+    height: 100%;
+    top: 0;
+    background: rgb(33, 150, 243);
+    border-radius: 9px;
+    z-index: -1;
+    transition: 0.2s;
+}
+
+.turn.left::after {
+    left: 0;
+}
+
+.turn.left span.o {
+    border-color: #fff;
+}
+.turn.right span.x::before,
+.turn.right span.x::after {
+    background: #fff;
+}
+.turn.right::after {
+    left: 50%;
+}
+
+.winner {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.winner .text {
+  background: #111;
+  width: 70%;
+  max-width: 400px;
+  height: 300px;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.winner .text h2 {
+  font-size: 2.5em;
+  margin: 15px 0;
+  color: #eee;
+}
+
+.winner .win-block {
+  margin: 0 auto;
+  width: fit-content;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  display: flex;
+  gap: 15px;
 }
