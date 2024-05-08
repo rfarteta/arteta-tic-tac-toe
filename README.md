@@ -1,4 +1,4 @@
-LIVE DEMO : [https://arteta-tic-tac-toe.vercel.app](https://arteta-tic-tac-toe-git-master-rodger-artetas-projects.vercel.app/?_vercel_share=esWLpC8cvaAQWvrjQPUz0t5IHpokQuPj)
+LIVE DEMO : https://arteta-tic-tac-toe.vercel.app
 
 # Getting Started with Create React App
 
